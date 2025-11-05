@@ -4,8 +4,6 @@ const limit = 10
 let offset = 0
 const maxRecords = 151 // primeira geração, 1025 no máximo
 
-const pokemon = document.getElementsByClassName('pokemon')
-
 function convertPokemonToLi(pokemon) {
     return `
     <li class="pokemon ${pokemon.type}">
@@ -32,6 +30,21 @@ function loadPokemonItens(offset, limit) {
 function redirectToPokemonDetail() {
     window.location.href = "pokemonDetail.html";
 }
+
+pokemonList.addEventListener('click', (event) => {
+    const pokemon = event.target.closest('.pokemon')
+
+    if (!pokemon) return
+
+    const number = pokemon.querySelector('.number');
+    const pokemonNumber = number ? number.textContent.trim().replace('#', '') : null;
+
+    console.log(pokemonNumber)
+
+    if (pokemonNumber) {
+        window.location.href = `pokemonDetail.html?id=${pokemonNumber}`;
+    }
+})
 
 loadPokemonItens(offset, limit)
 
